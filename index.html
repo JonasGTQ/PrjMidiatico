@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <title>O Dinheiro Virou Digital</title>
+    <script>
+        AFRAME.registerComponent('play-on-marker', {
+        schema: { video: { type: 'selector' } },
+        init: function () {
+            const v = this.data.video;
+            this.el.addEventListener('markerFound', () => v.play());
+            this.el.addEventListener('markerLost', () => v.pause());
+        }
+        });
+
+        window.addEventListener('load', () => {
+        const btn = document.getElementById('somBtn');
+        btn.addEventListener('click', () => {
+        const videos = document.querySelectorAll('video');
+        const ligarSom = videos[0].muted; // se estava mudo, vai ligar
+        videos.forEach(v => { v.muted = !ligarSom; });
+        btn.textContent = ligarSom ? '🔊 Desativar som' : '🔇 Ativar som';
+        });
+        });
+    </script>
+    <style>
+        .a-enter-vr, .a-enter-ar, .a-orientation-modal { display: none !important; }
+    </style>
+</head>
+<body style="margin:0; overflow:hidden">
+    <button id="somBtn" 
+    style="position:fixed; 
+    bottom:10px; 
+    right:10px; 
+    z-index:999; 
+    padding:12px 16px; 
+    font-size:16px; 
+    border:none; 
+    border-radius:8px;">
+        🔇 Ativar som
+    </button>
+    <a-scene embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3;">
+        <!-- Assets -->
+        <a-assets>
+            <!-- Modelo3D -->
+            <a-asset-item id="mdlescambo" src="assets/mdl/gal-b-die-4221.glb"></a-asset-item>
+            <a-asset-item id="mdlmercadoria" src="assets/mdl/gal-b-die-4221.glb"></a-asset-item>
+            <a-asset-item id="mdlmetalismo" src="assets/mdl/gal-b-die-4221.glb"></a-asset-item>
+            <a-asset-item id="mdlcunhagem" src="assets/mdl/gal-b-die-4221.glb"></a-asset-item>
+            <a-asset-item id="mdllastro" src="assets/mdl/gal-b-die-4221.glb"></a-asset-item>
+            <a-asset-item id="mdlfiduciario" src="assets/mdl/gal-b-die-4221.glb"></a-asset-item>
+            <a-asset-item id="mdleletronico" src="assets/mdl/gal-b-die-4221.glb"></a-asset-item>
+            <a-asset-item id="mdldigital" src="assets/mdl/gal-b-die-4221.glb"></a-asset-item>
+            <!-- Video -->
+            <video id="videscambo" src="assets/vid/escambo.mp4" preload="auto" loop muted playsinline></video>
+            <video id="vidmercadoria" src="assets/vid/mercadoria.mp4" preload="auto" loop muted playsinline></video>
+            <video id="vidmetalismo" src="assets/vid/metalismo.mp4" preload="auto" loop muted playsinline></video>
+            <video id="vidcunhagem" src="assets/vid/cunhagem.mp4" preload="auto" loop muted playsinline></video>
+            <video id="vidlastro" src="assets/vid/lastro.mp4" preload="auto" loop muted playsinline></video>
+            <video id="vidfiduciario" src="assets/vid/fiduciario.mp4" preload="auto" loop muted playsinline></video>
+            <video id="videletronico" src="assets/vid/eletronico.mp4" preload="auto" loop muted playsinline></video>
+            <video id="viddigital" src="assets/vid/digital.mp4" preload="auto" loop muted playsinline></video>
+            <!-- Imagem -->
+            <img id="imgescambo" src="assets/img/escambo.png">
+            <img id="imgmercadoria" src="assets/img/mercadoria.png">
+            <img id="imgmetalismo" src="assets/img/metalismo.png">
+            <img id="imgcunhagem" src="assets/img/cunhagem.png">
+            <img id="imglastro" src="assets/img/lastro.png">
+            <img id="imgfiduciario" src="assets/img/fiduciaria.png">
+            <img id="imgeletronico" src="assets/img/eletronico.png">
+            <img id="imgdigital" src="assets/img/digital.png">
+            <!-- Texto -->
+            <img id="txtescambo" src="assets/txt/w/escambo.png">
+            <img id="txtmercadoria" src="assets/txt/w/mercadoria.png">
+            <img id="txtmetalismo" src="assets/txt/w/metalismo.png">
+            <img id="txtcunhagem" src="assets/txt/w/cunhagem.png">
+            <img id="txtlastro" src="assets/txt/w/lastro.png">
+            <img id="txtfiduciario" src="assets/txt/w/fiduciaria.png">
+            <img id="txteletronico" src="assets/txt/w/eletronico.png">
+            <img id="txtdigital" src="assets/txt/w/digital.png">
+        </a-assets>
+        
+        <!-- Modelo3D -->
+        <!-- Item 1: Escambo e Troca Direta -->
+        <a-marker type="barcode" value="0">
+            <a-entity
+            gltf-model="#mdlescambo"
+            scale="1 1 1"
+            position="0 0 0"
+            rotation="0 0 0">
+            </a-entity>
+        </a-marker>
+        <!-- Item 2: Moedas-Mercadoria -->
+        <a-marker type="barcode" value="10">
+            <a-entity
+            gltf-model="#mdlmercadoria"
+            scale="1 1 1"
+            position="0 0 0"
+            rotation="0 0 0">
+            </a-entity>
+        </a-marker>
+        <!-- Item 3: Metais Preciosos Brutos -->
+        <a-marker type="barcode" value="10">
+            <a-entity
+            gltf-model="#mdlmetalismo"
+            scale="1 1 1"
+            position="0 0 0"
+            rotation="0 0 0">
+            </a-entity>
+        </a-marker>
+        <!-- Item 4: Moedas Cunhadas Oficiais -->
+        <a-marker type="barcode" value="10">
+            <a-entity
+            gltf-model="#mdlcunhagem"
+            scale="1 1 1"
+            position="0 0 0"
+            rotation="0 0 0">
+            </a-entity>
+        </a-marker>
+        <!-- Item 5: Papel-Moeda Lastreado -->
+        <a-marker type="barcode" value="10">
+            <a-entity
+            gltf-model="#mdllastro"
+            scale="1 1 1"
+            position="0 0 0"
+            rotation="0 0 0">
+            </a-entity>
+        </a-marker>
+        <!-- Item 6: Moeda Fiduciária Moderna -->
+        <a-marker type="barcode" value="10">
+            <a-entity
+            gltf-model="#mdlfiduciario"
+            scale="1 1 1"
+            position="0 0 0"
+            rotation="0 0 0">
+            </a-entity>
+        </a-marker>
+        <!-- Item 7: Cartões e Transações Eletrônicas -->
+        <a-marker type="barcode" value="10">
+            <a-entity
+            gltf-model="#mdleletronico"
+            scale="1 1 1"
+            position="0 0 0"
+            rotation="0 0 0">
+            </a-entity>
+        </a-marker>
+        <!-- Item 8: A Era do Dinheiro Digital e Criptoativos -->
+        <a-marker type="barcode" value="10">
+            <a-entity
+            gltf-model="#mdldigital"
+            scale="1 1 1"
+            position="0 0 0"
+            rotation="0 0 0">
+            </a-entity>
+        </a-marker>
+
+        <!-- Video -->
+        <!-- Item 1: Escambo e Troca Direta -->
+        <a-marker type="barcode" value="10" play-on-marker="video: #videscambo">
+            <a-video
+            src="#videscambo"
+            width="1"
+            height="2"
+            position="0 0 0.5"
+            rotation="-90 0 0">
+            </a-video>
+        </a-marker>
+        <!-- Item 2: Moedas-Mercadoria -->
+        <a-marker type="barcode" value="2" play-on-marker="video: #vidmercadoria">
+            <a-video
+            src="#vidmercadoria"
+            width="1"
+            height="2"
+            position="0 0 0.5"
+            rotation="-90 0 0">
+            </a-video>
+        </a-marker>
+        <!-- Item 3: Metais Preciosos Brutos -->
+        <a-marker type="barcode" value="3" play-on-marker="video: #vidmetalismo">
+            <a-video
+            src="#vidmetalismo"
+            width="1"
+            height="2"
+            position="0 0 0.5"
+            rotation="-90 0 0">
+            </a-video>
+        </a-marker>
+        <!-- Item 4: Moedas Cunhadas Oficiais -->
+        <a-marker type="barcode" value="4" play-on-marker="video: #vidcunhagem">
+            <a-video
+            src="#vidcunhagem"
+            width="1"
+            height="2"
+            position="0 0 0.5"
+            rotation="-90 0 0">
+            </a-video>
+        </a-marker>
+        <!-- Item 5: Papel-Moeda Lastreado -->
+        <a-marker type="barcode" value="5" play-on-marker="video: #vidlastro">
+            <a-video
+            src="#vidlastro"
+            width="1"
+            height="2"
+            position="0 0 0.5"
+            rotation="-90 0 0">
+            </a-video>
+        </a-marker>
+        <!-- Item 6: Moeda Fiduciária Moderna -->
+        <a-marker type="barcode" value="6" play-on-marker="video: #vidfiduciario">
+            <a-video
+            src="#vidfiduciario"
+            width="1"
+            height="2"
+            position="0 0 0.5"
+            rotation="-90 0 0">
+            </a-video>
+        </a-marker>
+        <!-- Item 7: Cartões e Transações Eletrônicas -->
+        <a-marker type="barcode" value="7" play-on-marker="video: #videletronico">
+            <a-video
+            src="#videletronico"
+            width="1"
+            height="2"
+            position="0 0 0.5"
+            rotation="-90 0 0">
+            </a-video>
+        </a-marker>
+        <!-- Item 8: A Era do Dinheiro Digital e Criptoativos -->
+        <a-marker type="barcode" value="8" play-on-marker="video: #viddigital">
+            <a-video
+            src="#viddigital"
+            width="1"
+            height="2"
+            position="0 0 0.5"
+            rotation="-90 0 0">
+            </a-video>
+        </a-marker>
+
+        <!-- Imagem -->
+        <!-- Item 1: Escambo e Troca Direta -->
+        <a-marker type="barcode" value="1">
+            <a-image
+            src="#imgescambo"
+            width="1.5"
+            height="1"
+            position="0 0 0"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 2: Moedas-Mercadoria -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#imgmercadoria"
+            width="1.5"
+            height="1"
+            position="0 0 0"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 3: Metais Preciosos Brutos -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#imgmetalismo"
+            width="1.5"
+            height="1"
+            position="0 0 0"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 4: Moedas Cunhadas Oficiais -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#imgcunhagem"
+            width="1.5"
+            height="1"
+            position="0 0 0"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 5: Papel-Moeda Lastreado -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#imglastro"
+            width="1.5"
+            height="1"
+            position="0 0 0"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 6: Moeda Fiduciária Moderna -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#imgfiduciario"
+            width="1.5"
+            height="1"
+            position="0 0 0"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 7: Cartões e Transações Eletrônicas -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#imgeletronico"
+            width="1.5"
+            height="1"
+            position="0 0 0"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 8: A Era do Dinheiro Digital e Criptoativos -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#imgdigital"
+            width="1.5"
+            height="1"
+            position="0 0 0"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+
+        <!-- Texto -->
+        <!-- Item 1: Escambo e Troca Direta -->
+        <a-marker type="barcode" value="1">
+            <a-image
+            src="#txtescambo"
+            width="2"
+            height="2"
+            position="0 0 -1"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 2: Moedas-Mercadoria -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#txtmercadoria"
+            width="2"
+            height="2"
+            position="0 0 -1"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 3: Metais Preciosos Brutos -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#txtmetalismo"
+            width="2"
+            height="2"
+            position="0 0 -1"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 4: Moedas Cunhadas Oficiais -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#txtcunhagem"
+            width="2"
+            height="2"
+            position="0 0 -1"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 5: Papel-Moeda Lastreado -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#txtlastro"
+            width="2"
+            height="2"
+            position="0 0 -1"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 6: Moeda Fiduciária Moderna -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#txtfiduciario"
+            width="2"
+            height="2"
+            position="0 0 -1"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 7: Cartões e Transações Eletrônicas -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#txteletronico"
+            width="2"
+            height="2"
+            position="0 0 -1"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <!-- Item 8: A Era do Dinheiro Digital e Criptoativos -->
+        <a-marker type="barcode" value="10">
+            <a-image
+            src="#txtdigital"
+            width="2"
+            height="2"
+            position="0 0 -1"
+            rotation="-90 0 0">
+            </a-image>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+</body>
+</html>
